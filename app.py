@@ -1,8 +1,10 @@
 from flask import Flask, render_template, request
 import pytesseract
+pytesseract.pytesseract.tesseract_cmd = r'C:/Users/ADITYA/AppData/Local/Programs/Tesseract-OCR/tesseract.exe'
 import cv2
 from pyaadhaar.utils import Qr_img_to_text, isSecureQr
 import cv2
+from PIL import Image
 from pyaadhaar.utils import Qr_img_to_text, isSecureQr
 from pyaadhaar.decode import AadhaarSecureQr
 from pyaadhaar.decode import AadhaarOldQr

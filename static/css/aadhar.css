@@ -150,7 +150,7 @@ a:hover{
     background: #fff;
     margin-top: 10px;
     height: 30px;
-    width: 80%;
+    width:90%;
     border: solid black 2px;
 }
 
@@ -160,7 +160,7 @@ a:hover{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 425px;
+    height: 500px;
     background-color: #ddd9d9;
     border-radius: 10px;
     margin-top: 30px;
