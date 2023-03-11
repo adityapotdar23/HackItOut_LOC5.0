@@ -85,6 +85,7 @@ a:hover{
     background: #2e4b6e;
     text-align: center;
     align-items: center;
+    box-shadow: 6px 6px rgba(34, 144, 222, 0.443);
 }
 .promo_card h1, .promo_card span, button{
     margin: 20px;
@@ -105,16 +106,81 @@ a:hover{
     text-align: center;
 }
 
-#btn{
-    margin-top: 80px;
+#btnn{
+    margin-top: 25px;
     width: 20%;
     height: 8%;
     transition-duration: 0.4s;
     background: #2e4b6e;
     color: white;
     font-size: 20px;
+    box-shadow: 6px 6px rgba(34, 144, 222, 0.443);
 }
-#btn:hover{
+#btnn:hover{
     background-color: #4CAF50;
     color: white;
+}
+
+.inputs{
+    background: rgb(194, 191, 191);
+    height: 315px;
+    margin-top: 40px;
+    margin-left: 30px;
+    margin-right: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.name{
+    background: #fff;
+    margin-top: 10px 10px 10px 10px;
+    height: 10px;
+    width: 90%;
+}
+.Address{
+    position: relative;
+    background: #fff;
+    margin-top: 10px;
+    height: 10px;
+    width: 90%;
+}
+.tp{
+    position: relative;
+    background: #fff;
+    margin-top: 10px;
+    height: 20px;
+    width: 80%;
+}
+
+
+
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 370px;
+    background-color: #ddd9d9;
+    border-radius: 10px;
+  }
+  form {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  .form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+    display: flex;
+  }
+#mainbase{
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    height:350px;
+    width:500px;
 }

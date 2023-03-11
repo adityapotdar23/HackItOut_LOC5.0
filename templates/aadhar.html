@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="{{url_for('static' , filename='css/aadhar.css' )}}">
     <script src="https://kit.fontawesome.com/43ac320d0f.js" crossorigin="anonymous"></script>
 
+
 </head>
 
 <body>
@@ -16,13 +17,14 @@
         <nav>
             <ul>
                 <li><a href="#" class="logo">
-                        <img src="logo.png" alt="">
+                        <img src="{{ url_for('static', filename='img/logo.png') }}">
                         <span class="nav-item">DashBoard</span>
                     </a></li>
-                <li><a href="index.html">
+                <li><a href="#">
                         <i class="fa-solid fa-house"></i>
                         <span class="nav-item">Home</span>
-                    </a></li>
+                    </a>
+                </li>
                 <li><a href="{{ url_for('aadhar') }}">
                         <i class="fa-solid fa-user"></i>
                         <span class="nav-item">Aadhar Card</span>
@@ -54,27 +56,38 @@
         <div class="promo_card">
             <h1>Welcome to Aadhar Verification</h1>
         </div>
-        <div style="margin-top:50px;" class="form">
-            <form action="/aadhar" id="upload-file" method="post" enctype="multipart/form-data">
+        <div style="margin-top:20px;" class="form">
+            <form id="upload-file" action="/aadhar" method="post" enctype="multipart/form-data">
                 <label id="upload" for="imageUpload" class="upload-label"><b>Upload Aadhar Image:</b></label>
-                <input type="file" name="aadhar_img" accept=".png, .jpg, .jpeg">
+                <input type="file" name="aadhar_img" id="imageUpload" accept=".png, .jpg, .jpeg">
                 <input type="submit" value="Upload">
             </form>
         </div>
+
         {% if context %}
-        <div class="grid-container">
-            <div class="grid-item">UID: {{ context.UID }}
-            </div>
-            <div class="grid-item">Name: {{ context.Name }}
-            </div>
-            <div class="grid-item">Year of birth: {{ context.YOB }}
-            </div>
-            <div class="grid-item">Gender: {{ context.Gender }}
-            </div>
+        <div class="form-container">
+            <form id="mainbase">
+                <h3 style="margin-bottom: 15px;">Verify Details</h3>
+                <div class="form-group">
+                    <label style="margin-top: 7px" style="margin-right: 10px;" for="Name">Name: </label>
+                    <div style="background: #e0dfdf;margin-left:10px;" class="tp">{{ context.Name }}</div>
+                </div>
+                <div class="form-group">
+                    <label style="margin-top: 7px" for="UID">UID: </label>
+                    <div style="background: #e0dfdf;margin-left: 26px;" class="tp">{{ context.UID }}</div>
+                </div>
+                <div class="form-group">
+                    <label style="margin-top: 7px" for="message">Year of birth: </label>
+                    <div style="background: #e0dfdf;margin-left: 18px;" class="tp">{{ context.YOB }}</div>
+                </div>
+                <div class="form-group">
+                    <label style="margin-top: 7px" for="message">Gender: </label>
+                    <div style="background: #e0dfdf;margin-left: 24px;" class="tp">{{ context.Gender }}</div>
+                </div>
+            </form>
         </div>
         {% endif %}
-        <button id="btn"><b>Save</b></button>
-    </div>
+        <button id="btnn"><b>Save</b></button>
 
 </body>
 
