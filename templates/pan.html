@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aadhar</title>
-    <link rel="stylesheet" type="text/css" href="{{url_for('static' , filename='css/aadhar.css' )}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static' , filename='css/pan.css' )}}">
     <script src="https://kit.fontawesome.com/43ac320d0f.js" crossorigin="anonymous"></script>
 
 
@@ -54,27 +54,25 @@
     </div>
     <div class="main-body">
         <div class="promo_card">
-            <h1>Welcome to Aadhar Verification</h1>
+            <h1>Welcome to PAN Card Verification</h1>
         </div>
 
         <div class="form-container">
-
+            
             <div class="choose">
                 <div class="form">
                     <form id="upload-file" method="post" action="/aadhar" enctype="multipart/form-data">
-                        <label id="upload" for="imageUpload" class="upload-label"><b>Upload Aadhar Image:</b></label>
-                        <br />
-                        <input style="margin-top: 10px;margin-left:10px" type="file" name="aadhar_img" id="imageUpload"
-                            accept="image/png, image/jpg, image/jpeg">
+                        <label id="upload" for="imageUpload" class="upload-label"><b>Upload PAN Image:</b></label>
+                        <br/>
+                        <input style="margin-top: 10px;margin-left:10px" type="file" name="aadhar_img" id="imageUpload" accept="image/png, image/jpg, image/jpeg">
                         <input type="submit" value="Upload"></input>
                     </form>
                 </div>
-
+                
                 <div id="display_image">
-
                 </div>
-
-
+                
+                
             </div>
             {% if context %}
 
@@ -85,28 +83,24 @@
                     <div style="background: #e0dfdf;margin-left:10px;" class="tp">{{ context.Name }}</div>
                 </div>
                 <div class="form-group">
-                    <label style="margin-top: 7px" for="UID">UID: </label>
+                    <label style="margin-top: 7px" for="UID">PRN: </label>
                     <div style="background: #e0dfdf;margin-left: 26px;" class="tp">{{ context.UID }}</div>
                 </div>
                 <div class="form-group">
                     <label style="margin-top: 7px" for="message">Year of birth: </label>
                     <div style="background: #e0dfdf;margin-left: 18px;" class="tp">{{ context.YOB }}</div>
                 </div>
-                <div class="form-group">
-                    <label style="margin-top: 7px" for="message">Gender: </label>
-                    <div style="background: #e0dfdf;margin-left: 24px;" class="tp">{{ context.Gender }}</div>
-                </div>
             </form>
             {% endif %}
         </div>
         <button id="btnn"><b>Save</b></button>
         <script>
-            const image_input = document.querySelector("#imageUpload");
-            var uploaded_image = "";
-
-            image_input.addEventListener("change", function () {
+        const image_input = document.querySelector("#imageUpload");
+            var uploaded_image ="";
+            
+            image_input.addEventListener("change",function(){
                 const reader = new FileReader();
-                reader.addEventListener("load", () => {
+                reader.addEventListener("load",()=>{
                     uploaded_image = reader.result;
                     document.querySelector("#display_image").style.backgroundImage = `url(${uploaded_image})`
                 });
