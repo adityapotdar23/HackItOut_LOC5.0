@@ -64,9 +64,53 @@ def aadhar():
 
     return render_template('aadhar.html', context=context)
 
-@app.route('/pan')
+@app.route('/pan', methods=['GET', 'POST'])
 def pan():
-    return render_template('pan.html')
+    if request.method == 'POST':
+
+        file = request.files['aadhar_img'] 
+
+        img = cv2.imdecode(np.fromstring(
+            file.read(), np.uint8), cv2.IMREAD_UNCHANGED)
+        
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+        th, threshed = cv2.threshold(gray, 127, 255, cv2.THRESH_TRUNC)
+
+        text1 = pytesseract.image_to_data(threshed,output_type='data.frame')
+
+        text2 = pytesseract.image_to_string(threshed, lang="ind")
+
+        text = text1[text1.conf != -1]
+
+        lines = text.groupby('block_num')['text'].apply(list)
+
+        mylst = [] 
+        for i in lines:
+            mylst.extend(i)
+
+        if(len(mylst)==0): 
+            context = None 
+        else: 
+            pnr = ""
+            name = ""
+            yob = ""
+            if 'Number' in mylst: 
+                ind = mylst.index('Number') 
+                pnr += mylst[ind + 1]
+            if 'Name' in mylst: 
+                ind = mylst.index('Name') 
+                name = name + mylst[ind + 1] + " " 
+                name = name + mylst[ind + 2] + " " 
+            if 'Birth' in mylst: 
+                ind = mylst.index('Birth') 
+                yob = yob + mylst[ind + 1]
+            context = {"PNR": pnr, "Name": name, "YOB": yob}
+    else: 
+        context = None
+
+
+        return render_template('pan.html', context=context)
 
 if __name__ == '__main__':
     app.run(debug=True)
