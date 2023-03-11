@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="style.css"/>
+    <title>Aadhar</title>
+    <link rel="stylesheet" href="aadhar.css"/>
     <script src="https://kit.fontawesome.com/43ac320d0f.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -16,7 +16,7 @@
                     <img src="logo.png" alt="">
                     <span class="nav-item">DashBoard</span>
                 </a></li>
-                <li><a href="#">
+                <li><a href="index.html">
                     <i class="fa-solid fa-house"></i>
                     <span class="nav-item">Home</span>
                 </a></li>
@@ -46,11 +46,37 @@
                 </a></li>
             </ul>
         </nav>
-
-        <section class="main">
-
-        </section>
+    </div>  
+    <div class="main-body">
+            <h2>Aadhar Authentication</h2>
+            <div class="promo_card">
+              <h1>Welcome to Aadhar Verification</h1>
+                <div class="form">
+                    <form id="upload-file" method="post" enctype="multipart/form-data">
+                        <label id="upload" for="imageUpload" class="upload-label">
+                            Upload  Aadhar Image
+                        </label>
+                        <br/>
+                        <input type="file" name="file" id="imageUpload" accept=".png, .jpg, .jpeg">
+                    </form>
+                    <div class="grid-container">
+                        <div class="grid-item">Name
+                        <input type="text" id="fname" name="fname">
+                        </div>
+                        <div class="grid-item">Address
+                            <input type="text" id="faddress" name="faddress">
+                        </div>
+                        <div class="grid-item">Date of birth
+                            <input type="text" id="fdob" name="fdob">
+                        </div>
+                        <div class="grid-item">Photo
+                            <input type="text" id="fphoto" name="fphoto">
+                        </div>
+                      </div>
+                </div>
+              <button>Save</button>
+            </div>
     </div>
-    
+
 </body>
 </html>
