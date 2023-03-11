@@ -72,7 +72,7 @@
 
                 <div id="display_image">
                     {% if img_name %}
-                    <img class="img-fluid border rounded imgheightWidth" src={{url_for('static', filename='images/' + img_name)}} alt="Image">
+                    <img id="final_image" class="img-fluid border rounded imgheightWidth" src={{url_for('static', filename='images/' + img_name)}} alt="Image">
                     {% endif %}
                 </div>
 

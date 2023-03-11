@@ -160,7 +160,7 @@ a:hover{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 400px;
+    height: 425px;
     background-color: #ddd9d9;
     border-radius: 10px;
     margin-top: 30px;
@@ -195,6 +195,9 @@ a:hover{
 }
 
 #display_image{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 425px;
     height:260px;
     border:1px solid black;
@@ -204,4 +207,9 @@ a:hover{
     margin: 10px 10px 10px 10px;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+#final_image{
+    width: 150px;
+    height: 150px;
 }
