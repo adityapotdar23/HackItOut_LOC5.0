@@ -107,7 +107,7 @@ a:hover{
 }
 
 #btnn{
-    margin-top: 25px;
+    margin-top: 50px;
     width: 20%;
     height: 8%;
     transition-duration: 0.4s;
@@ -122,7 +122,7 @@ a:hover{
 }
 
 .inputs{
-    background: rgb(194, 191, 191);
+    background: rgb(233, 14, 14);
     height: 315px;
     margin-top: 40px;
     margin-left: 30px;
@@ -160,10 +160,13 @@ a:hover{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 370px;
+    height: 400px;
     background-color: #ddd9d9;
     border-radius: 10px;
+    margin-top: 30px;
+    box-shadow: 5px 5px rgba(6, 6, 6, 0.1);
   }
+
   form {
     background-color: #fff;
     border-radius: 10px;
@@ -184,4 +187,21 @@ a:hover{
     text-align: center;
     height:350px;
     width:500px;
+    margin-left: 100px;
+}
+
+.choose{
+    display: block;
+}
+
+#display_image{
+    width: 400px;
+    height:211px;
+    border:1px solid black;
+    background-position: center;
+    background-size: cover;
+    background-color: #fff;
+    margin: 25px 10px 10px 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }

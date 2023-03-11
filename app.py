@@ -7,6 +7,7 @@ from pyaadhaar.decode import AadhaarSecureQr
 from pyaadhaar.decode import AadhaarOldQr
 import xml.etree.ElementTree as ET
 import numpy as np
+import os
 
 app = Flask(__name__)
 
@@ -43,9 +44,9 @@ def aadhar():
         # Extract the signature from the image
         x, y, w, h = cv2.boundingRect(largest_contour)
 
-        cv2.imwrite('image.png', img[y-10:y+h+10, x-10:x+w+10])
+        cv2.imwrite('static/images/aadhar.png', img[y-10:y+h+10, x-10:x+w+10])
         # Extract Aadhaar card details from the image
-        qrData = Qr_img_to_text('image.png')
+        qrData = Qr_img_to_text('static/images/aadhar.png')
         if len(qrData) == 0:
             context = None
         else:
@@ -60,6 +61,8 @@ def aadhar():
                            "Gender": gender, "YOB": yob}
     else:
         context = None
+    
+
 
     return render_template('aadhar.html', context=context)
 
