@@ -149,8 +149,9 @@ a:hover{
     position: relative;
     background: #fff;
     margin-top: 10px;
-    height: 20px;
+    height: 30px;
     width: 80%;
+    border: solid black 2px;
 }
 
 
