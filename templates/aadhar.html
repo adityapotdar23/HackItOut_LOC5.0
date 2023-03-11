@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link rel="stylesheet" type="text/css" href="{{url_for('static' , filename='css/style.css' )}}">
+    <title>Aadhar</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static' , filename='css/aadhar.css' )}}">
     <script src="https://kit.fontawesome.com/43ac320d0f.js" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
@@ -18,7 +19,7 @@
                         <img src="logo.png" alt="">
                         <span class="nav-item">DashBoard</span>
                     </a></li>
-                <li><a href="#">
+                <li><a href="index.html">
                         <i class="fa-solid fa-house"></i>
                         <span class="nav-item">Home</span>
                     </a></li>
@@ -48,10 +49,31 @@
                     </a></li>
             </ul>
         </nav>
-
-        <section class="main">
-
-        </section>
+    </div>
+    <div class="main-body">
+        <div class="promo_card">
+            <h1>Welcome to Aadhar Verification</h1>
+        </div>
+        <div style="margin-top:50px;" class="form">
+            <form action="/aadhar" id="upload-file" method="post" enctype="multipart/form-data">
+                <label id="upload" for="imageUpload" class="upload-label"><b>Upload Aadhar Image:</b></label>
+                <input type="file" name="aadhar_img" accept=".png, .jpg, .jpeg">
+                <input type="submit" value="Upload">
+            </form>
+        </div>
+        {% if context %}
+        <div class="grid-container">
+            <div class="grid-item">UID: {{ context.UID }}
+            </div>
+            <div class="grid-item">Name: {{ context.Name }}
+            </div>
+            <div class="grid-item">Year of birth: {{ context.YOB }}
+            </div>
+            <div class="grid-item">Gender: {{ context.Gender }}
+            </div>
+        </div>
+        {% endif %}
+        <button id="btn"><b>Save</b></button>
     </div>
 
 </body>
