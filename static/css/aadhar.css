@@ -9,7 +9,7 @@
     font-family: "Poppins",sans-serif;
 }
 body{
-    background: #dcc6b8;
+    background: #f2d5c3;
     display: flex;
 }
 .container{
@@ -64,7 +64,7 @@ nav .fa-solid{
     margin-left: 10px;
 }
 a:hover{
-    background: #d8b59d;
+    background:#df9f78;
     color:#fff
 }
 .logout{
@@ -195,13 +195,13 @@ a:hover{
 }
 
 #display_image{
-    width: 400px;
-    height:211px;
+    width: 425px;
+    height:260px;
     border:1px solid black;
     background-position: center;
     background-size: cover;
     background-color: #fff;
-    margin: 25px 10px 10px 10px;
+    margin: 10px 10px 10px 10px;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }

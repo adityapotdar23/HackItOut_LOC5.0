@@ -11,6 +11,13 @@ import os
 
 app = Flask(__name__)
 
+ALLOWED_EXT = set(['jpg', 'jpeg', 'png', 'jfif'])
+
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in ALLOWED_EXT
+
 
 @app.route('/')
 def index():
@@ -45,6 +52,8 @@ def aadhar():
         x, y, w, h = cv2.boundingRect(largest_contour)
 
         cv2.imwrite('static/images/aadhar.png', img[y-10:y+h+10, x-10:x+w+10])
+
+        img_name = 'aadhar.png'
         # Extract Aadhaar card details from the image
         qrData = Qr_img_to_text('static/images/aadhar.png')
         if len(qrData) == 0:
@@ -61,8 +70,10 @@ def aadhar():
                            "Gender": gender, "YOB": yob}
     else:
         context = None
+        img_name = None
 
-    return render_template('aadhar.html', context=context)
+    return render_template('aadhar.html', context=context, img_name=img_name)
+
 
 @app.route('/pan', methods=['GET', 'POST'])
 def pan():
@@ -111,6 +122,7 @@ def pan():
 
 
         return render_template('pan.html', context=context)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
