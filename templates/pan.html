@@ -61,7 +61,7 @@
             
             <div class="choose">
                 <div class="form">
-                    <form id="upload-file" method="post" action="/aadhar" enctype="multipart/form-data">
+                    <form id="upload-file" method="post" action="/pan" enctype="multipart/form-data">
                         <label id="upload" for="imageUpload" class="upload-label"><b>Upload PAN Image:</b></label>
                         <br/>
                         <input style="margin-top: 10px;margin-left:10px" type="file" name="aadhar_img" id="imageUpload" accept="image/png, image/jpg, image/jpeg">
@@ -79,12 +79,12 @@
             <form id="mainbase">
                 <h3 style="margin-bottom: 15px;">Verify Details</h3>
                 <div class="form-group">
-                    <label style="margin-top: 7px" style="margin-right: 10px;" for="Name">Name: </label>
-                    <div style="background: #e0dfdf;margin-left:10px;" class="tp">{{ context.Name }}</div>
+                    <label style="margin-top: 7px" style="margin-right: 10px;" for="Name">PNR: </label>
+                    <div style="background: #e0dfdf;margin-left:10px;" class="tp">{{ context.PNR }}</div>
                 </div>
                 <div class="form-group">
-                    <label style="margin-top: 7px" for="UID">PRN: </label>
-                    <div style="background: #e0dfdf;margin-left: 26px;" class="tp">{{ context.UID }}</div>
+                    <label style="margin-top: 7px" for="UID">Name: </label>
+                    <div style="background: #e0dfdf;margin-left: 26px;" class="tp">{{ context.name }}</div>
                 </div>
                 <div class="form-group">
                     <label style="margin-top: 7px" for="message">Year of birth: </label>
