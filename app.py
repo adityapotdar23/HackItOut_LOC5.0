@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+import pytesseract
 import cv2
 from pyaadhaar.utils import Qr_img_to_text, isSecureQr
 import cv2
