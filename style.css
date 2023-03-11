@@ -10,6 +10,7 @@
 }
 body{
     background: #dfe9f5;
+    display: flex;
 }
 .container{
     display: flex;
@@ -63,10 +64,10 @@ nav .fa-solid{
     margin-left: 10px;
 }
 a:hover{
-    background: #e8dce5;
+    background: #86a6cd;
+    color:#fff
 }
 .logout{
     position: absolute;
     bottom: 0;
 }
-

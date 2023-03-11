@@ -7,6 +7,7 @@
     <title>Aadhar</title>
     <link rel="stylesheet" href="aadhar.css"/>
     <script src="https://kit.fontawesome.com/43ac320d0f.js" crossorigin="anonymous"></script>
+    
 </head>
 <body>
     <div class=""container">
@@ -48,34 +49,31 @@
         </nav>
     </div>  
     <div class="main-body">
-            <h2>Aadhar Authentication</h2>
             <div class="promo_card">
               <h1>Welcome to Aadhar Verification</h1>
-                <div class="form">
-                    <form id="upload-file" method="post" enctype="multipart/form-data">
-                        <label id="upload" for="imageUpload" class="upload-label">
-                            Upload  Aadhar Image
-                        </label>
-                        <br/>
-                        <input type="file" name="file" id="imageUpload" accept=".png, .jpg, .jpeg">
-                    </form>
-                    <div class="grid-container">
-                        <div class="grid-item">Name
-                        <input type="text" id="fname" name="fname">
-                        </div>
-                        <div class="grid-item">Address
-                            <input type="text" id="faddress" name="faddress">
-                        </div>
-                        <div class="grid-item">Date of birth
-                            <input type="text" id="fdob" name="fdob">
-                        </div>
-                        <div class="grid-item">Photo
-                            <input type="text" id="fphoto" name="fphoto">
-                        </div>
-                      </div>
-                </div>
-              <button>Save</button>
             </div>
+            <div  style="margin-top:50px;" class="form">
+                <form id="upload-file" method="post" enctype="multipart/form-data">
+                    <label id="upload" for="imageUpload" class="upload-label"><b>Upload Aadhar Image:</b></label>
+                    <input type="file" name="file" id="imageUpload" accept=".png, .jpg, .jpeg">
+                </form>
+            </div>
+
+            <div class="grid-container">
+                <div class="grid-item">Name
+                <input style="margin-left:70px;" type="text" id="fname" name="fname">
+                </div>
+                <div class="grid-item">Address
+                    <input style="margin-left:47px;" type="text" id="faddress" name="faddress">
+                </div>
+                <div class="grid-item">Date of birth
+                    <input style="margin-left:8px;" type="date" id="fdob" name="fdob">
+                </div>
+                <div class="grid-item">Photo
+                    <input style="margin-left:70px;" type="text" id="fphoto" name="fphoto">
+                </div>
+              </div>
+              <button id="btn"><b>Save</b></button>
     </div>
 
 </body>

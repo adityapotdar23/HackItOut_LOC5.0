@@ -64,7 +64,8 @@ nav .fa-solid{
     margin-left: 10px;
 }
 a:hover{
-    background: #e8dce5;
+    background: #86a6cd;
+    color:#fff
 }
 .logout{
     position: absolute;
@@ -73,19 +74,20 @@ a:hover{
 
 /* Main Section */
 .main-body{
-    width: 70%;
     padding: 1rem;
+    width:100%;
   }
 .promo_card{
-    width: 100%;
     color: #fff;
     margin-top: 10px;
     border-radius: 8px;
     padding: 0.5rem 1rem 1rem 3rem;
-    background: rgb(37, 37, 37);
+    background: #2e4b6e;
+    text-align: center;
+    align-items: center;
 }
 .promo_card h1, .promo_card span, button{
-    margin: 10px;
+    margin: 20px;
 }
 .promo_card button{
     display: block;
@@ -93,13 +95,26 @@ a:hover{
     border-radius: 5px;
     cursor: pointer;
 }
-.form{
-    display: flex;
-}
 .grid-container {
+    margin-top: 80px;
     display: grid;
-    row-gap: 50px;
+    row-gap: 30px;
+    font-size: 20px;
 }
-.grid-item{
-    
+.main-body{
+    text-align: center;
+}
+
+#btn{
+    margin-top: 80px;
+    width: 20%;
+    height: 8%;
+    transition-duration: 0.4s;
+    background: #2e4b6e;
+    color: white;
+    font-size: 20px;
+}
+#btn:hover{
+    background-color: #4CAF50;
+    color: white;
 }
