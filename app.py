@@ -1,4 +1,6 @@
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request
+import cv2
+from pyaadhaar.utils import Qr_img_to_text, isSecureQr
 import cv2
 from pyaadhaar.utils import Qr_img_to_text, isSecureQr
 from pyaadhaar.decode import AadhaarSecureQr
@@ -13,6 +15,7 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     return render_template('index.html')
+
 
 @app.route("/aadhar", methods=['GET', 'POST'])
 def aadhar():
@@ -41,9 +44,9 @@ def aadhar():
         # Extract the signature from the image
         x, y, w, h = cv2.boundingRect(largest_contour)
 
-        cv2.imwrite('image.png', img[y-10:y+h+10, x-10:x+w+10])
+        cv2.imwrite('static/images/aadhar.png', img[y-10:y+h+10, x-10:x+w+10])
         # Extract Aadhaar card details from the image
-        qrData = Qr_img_to_text('image.png')
+        qrData = Qr_img_to_text('static/images/aadhar.png')
         if len(qrData) == 0:
             context = None
         else:
@@ -56,12 +59,14 @@ def aadhar():
                 yob = root.attrib['yob']
                 context = {"UID": uid, "Name": name,
                            "Gender": gender, "YOB": yob}
-            # Send the image file back as a response
-            return send_file('image.png', mimetype='image/png')
     else:
         context = None
 
     return render_template('aadhar.html', context=context)
+
+@app.route('/pan')
+def pan():
+    return render_template('pan.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
