@@ -9,7 +9,7 @@
     font-family: "Poppins",sans-serif;
 }
 body{
-    background: #dcc6b8;
+    background: #dfe9f5;
     display: flex;
 }
 .container{
@@ -64,7 +64,7 @@ nav .fa-solid{
     margin-left: 10px;
 }
 a:hover{
-    background: #d8b59d;
+    background: #86a6cd;
     color:#fff
 }
 .logout{
@@ -82,10 +82,10 @@ a:hover{
     margin-top: 10px;
     border-radius: 8px;
     padding: 0.5rem 1rem 1rem 3rem;
-    background:  #d37535;
+    background: #2e4b6e;
     text-align: center;
     align-items: center;
-    box-shadow: 6px 6px rgba(158, 48, 4, 0.443);
+    box-shadow: 6px 6px rgba(34, 144, 222, 0.443);
 }
 .promo_card h1, .promo_card span, button{
     margin: 20px;
@@ -111,7 +111,7 @@ a:hover{
     width: 20%;
     height: 8%;
     transition-duration: 0.4s;
-    background:#d37535;
+    background: #2e4b6e;
     color: white;
     font-size: 20px;
     box-shadow: 6px 6px rgba(34, 144, 222, 0.443);
