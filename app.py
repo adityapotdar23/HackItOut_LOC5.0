@@ -37,7 +37,9 @@ def aadhar():
     if request.method == 'POST':
         # Get the uploaded file from the HTML form
         file = request.files['aadhar_img']
-        # Read the image file using OpenCV
+        # Read the image file using OpenCV 
+
+        status = True
         img = cv2.imdecode(np.fromstring(
             file.read(), np.uint8), cv2.IMREAD_UNCHANGED)
 
@@ -65,7 +67,8 @@ def aadhar():
         # Extract Aadhaar card details from the image
         qrData = Qr_img_to_text('static/images/aadhar.png')
         if len(qrData) == 0:
-            context = None
+            context = {"aadhar_status":"Upload another Aadhar QR Code image"}
+
         else:
             # Parse the XML document
             for i in qrData:
@@ -73,12 +76,12 @@ def aadhar():
                 uid = root.attrib['uid']
                 name = root.attrib['name'].lower()
                 gender = root.attrib['gender']
-                yob = root.attrib['yob']
+                yob = root.attrib['yob'] 
                 context = {"UID": uid, "Name": name,
-                           "Gender": gender, "YOB": yob}
-    else:
-        context = None
-        img_name = None
+                           "Gender": gender, "YOB": yob, "aadhar_status":"Aadhar code detected"} 
+    else: 
+        img_name = None 
+        context = {"aadhar_status":"Upload another Aadhar QR Code image"}
 
     return render_template('aadhar.html', context=context, img_name=img_name)
 
@@ -150,6 +153,75 @@ def pan():
         pan_img = None
 
     return render_template('pan.html', context=context, pan_img=pan_img)
+
+
+
+@app.route('/voter', methods=['GET', 'POST'])
+def voter():
+    global name
+    global yob
+    if request.method == 'POST':
+        # Get the uploaded file from the HTML form
+        file = request.files['voter_img']
+        # Read the image file using OpenCV
+        img = cv2.imdecode(np.fromstring(
+            file.read(), np.uint8), cv2.IMREAD_UNCHANGED)
+        
+        cv2.imwrite('static/images/voter_img.png', img)
+
+        voter_img = 'voter_img.png'
+        # # Save the uploaded image temporarily for debugging purposes
+        dpi = 80
+        fig_width, fig_height = int(img.shape[0]/dpi), int(img.shape[1]/dpi)
+        mylst = []
+
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+        th, threshed = cv2.threshold(gray, 127, 255, cv2.THRESH_TRUNC)
+        reader = easyocr.Reader(['en']) 
+        result = reader.readtext(img) 
+
+        for (bbox, text, prob) in result:
+            if prob >= 0.5:
+                # display 
+                mylst.append(text)
+                print(f'Detected text: {text} (Probability: {prob:.2f})')
+
+                # get top-left and bottom-right bbox vertices
+                (top_left, top_right, bottom_right, bottom_left) = bbox
+                top_left = (int(top_left[0]), int(top_left[1]))
+                bottom_right = (int(bottom_right[0]), int(bottom_right[1]))
+
+                # create a rectangle for bbox display
+                cv2.rectangle(img=img, pt1=top_left, pt2=bottom_right, color=(255, 0, 0), thickness=10)
+
+                # put recognized text
+                cv2.putText(img=img, text=text, org=(top_left[0], top_left[1] - 10), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.5, color=(255, 0, 0), thickness=1)
+
+        if len(mylst) == 0:
+            context = None
+        else:
+            # Parse the XML document
+            mylst_1 = []
+            for i in mylst: 
+                data = re.sub(r'[^a-zA-Z0-9\s]', ' ', i) 
+                data = data.lower()  
+                mylst_1.append(data)
+            mylst_1[ : ] = [' '.join(mylst_1[ : ])]
+            status = 'Reupload your correct Voter ID image' 
+            if 'election' in mylst_1[0]:
+                status = "Voter ID image uploaded successully" 
+            if name in mylst_1[0] and yob in mylst_1[0]:
+                verified = 'Voter ID verified'
+            else:
+                verified = 'Re-upload Voter ID. Not Verified' 
+            context = {'voter_id_status': status, 'verified_status':verified}
+
+    else:
+        context = None
+        voter_img = None
+
+    return render_template('voter.html', context=context, voter_img=voter_img)
 
 
 if __name__ == '__main__':

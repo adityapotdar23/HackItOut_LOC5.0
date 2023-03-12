@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aadhar</title>
-    <link rel="stylesheet" type="text/css" href="{{url_for('static' , filename='css/aadhar.css' )}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static' , filename='css/voter.css' )}}">
     <script src="https://kit.fontawesome.com/43ac320d0f.js" crossorigin="anonymous"></script>
 
 
@@ -37,79 +37,65 @@
                         <i class="fa-solid fa-car"></i>
                         <span class="nav-item">Voter ID</span>
                     </a></li>
+                <li><a href="">
                         <i class="fa-solid fa-file-signature"></i>
                         <span class="nav-item">Digital Signature</span>
                     </a></li>
-
             </ul>
         </nav>
     </div>
     <div class="main-body">
         <div class="promo_card">
-            <h1>Welcome to Aadhar Verification</h1>
+            <h1>Welcome to Voter ID Verification</h1>
         </div>
 
         <div class="form-container">
-
+            
             <div class="choose">
                 <div class="form">
-                    <form id="upload-file" method="post" action="/aadhar" enctype="multipart/form-data">
-                        <label id="upload" for="imageUpload" class="upload-label"><b>Upload Aadhar Image:</b></label>
-                        <br />
-                        <input style="margin-top: 10px;margin-left:10px" type="file" name="aadhar_img" id="imageUpload"
-                            accept="image/png, image/jpg, image/jpeg">
+                    <form id="upload-file" method="post" action="/voter" enctype="multipart/form-data">
+                        <label id="upload" for="imageUpload" class="upload-label"><b>Upload Voter ID Image:</b></label>
+                        <br/>
+                        <input style="margin-top: 10px;margin-left:10px" type="file" name="voter_img" id="imageUpload" accept="image/png, image/jpg, image/jpeg">
                         <input type="submit" value="Upload"></input>
                     </form>
                 </div>
-
+                
                 <div id="display_image">
-                    {% if img_name %}
-                    <img id="final_image" class="img-fluid border rounded imgheightWidth" src={{url_for('static', filename='images/' + img_name)}} alt="Image">
+                    {% if voter_img %}
+                    <img id="final_image" class="img-fluid border rounded imgheightWidth" src={{url_for('static', filename='images/' + voter_img)}} alt="Image">
                     {% endif %}
                 </div>
-
-
+                
+                
             </div>
             {% if context %}
 
             <form id="mainbase">
                 <h3 style="margin-bottom: 15px;">Verify Details</h3>
                 <div class="form-group">
-                    <label style="margin-top: 7px" style="margin-right: 10px;" for="Name">Name: </label>
-                    <div style="background: #e0dfdf;margin-left: 20px;" class="tp">{{ context.Name }}</div>
+                    <label style="margin-top: 7px" style="margin-right: 10px;" for="Name">Status: </label>
+                    <div style="background: #e0dfdf;margin-left: 20px;" class="tp">{{ context.voter_id_status }}</div>
                 </div>
                 <div class="form-group">
-                    <label style="margin-top: 7px" for="UID">UID: </label>
-                    <div style="background: #e0dfdf;margin-left: 40px;" class="tp">{{ context.UID }}</div>
+                    <label style="margin-top: 7px" for="UID">Verified Status: </label>
+                    <div style="background: #e0dfdf;margin-left: 40px;" class="tp">{{ context.verified_status }}</div>
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label style="margin-top: 7px" for="message">Birth Year: </label>
-                    <div style="background: #e0dfdf;" class="tp">{{ context.YOB }}</div>
-                </div>
-                <div class="form-group">
-                    <label style="margin-top: 7px" for="message">Gender: </label>
-                    <div style="background: #e0dfdf;margin-left: 10px;" class="tp">{{ context.Gender }}</div>
-                </div>
-                
-            </form> 
-            
+                    <div style="background: #e0dfdf;margin-left: 18px;" class="tp">{{ context.YOB }}</div>
+                </div> -->
+            </form>
             {% endif %}
         </div>
-        <div style='display:flex;margin-left: 200px;' class="footer">
-            <button id="btnn"><b>Save</b></button>
-            <div style='margin-left: 50px; margin-top: 20px;' class="form-group">
-                <label style="margin-top: 7px;" for="message">Aadhaar Status: </label>
-                <div style="background: #faf7f7;margin-left: 10px;" class="tp">{{ context.aadhar_status }}</div>
-            </div>
-        </div>
-        <!-- <button id="btnn"><b>Save</b></button> -->
+        <button id="btnn"><b>Save</b></button>
         <script>
-            const image_input = document.querySelector("#imageUpload");
-            var uploaded_image = "";
-
-            image_input.addEventListener("change", function () {
+        const image_input = document.querySelector("#imageUpload");
+            var uploaded_image ="";
+            
+            image_input.addEventListener("change",function(){
                 const reader = new FileReader();
-                reader.addEventListener("load", () => {
+                reader.addEventListener("load",()=>{
                     uploaded_image = reader.result;
                     document.querySelector("#display_image").style.backgroundImage = `url(${uploaded_image})`
                 });

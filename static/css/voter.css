@@ -9,7 +9,7 @@
     font-family: "Poppins",sans-serif;
 }
 body{
-    background: #f2d5c3;
+    background: #dfe9f5;
     display: flex;
 }
 .container{
@@ -64,7 +64,7 @@ nav .fa-solid{
     margin-left: 10px;
 }
 a:hover{
-    background:#df9f78;
+    background: #86a6cd;
     color:#fff
 }
 .logout{
@@ -82,10 +82,10 @@ a:hover{
     margin-top: 10px;
     border-radius: 8px;
     padding: 0.5rem 1rem 1rem 3rem;
-    background:  #d37535;
+    background: #2e4b6e;
     text-align: center;
     align-items: center;
-    box-shadow: 6px 6px rgba(158, 48, 4, 0.443);
+    box-shadow: 6px 6px rgba(34, 144, 222, 0.443);
 }
 .promo_card h1, .promo_card span, button{
     margin: 20px;
@@ -107,11 +107,11 @@ a:hover{
 }
 
 #btnn{
-    margin-top: 40px;
+    margin-top: 50px;
     width: 20%;
     height: 8%;
     transition-duration: 0.4s;
-    background:#d37535;
+    background: #2e4b6e;
     color: white;
     font-size: 20px;
     box-shadow: 6px 6px rgba(34, 144, 222, 0.443);
@@ -150,7 +150,7 @@ a:hover{
     background: #fff;
     margin-top: 10px;
     height: 30px;
-    width:90%;
+    width: 80%;
     border: solid black 2px;
 }
 
@@ -160,7 +160,7 @@ a:hover{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 450px;
+    height: 425px;
     background-color: #ddd9d9;
     border-radius: 10px;
     margin-top: 30px;
@@ -208,7 +208,6 @@ a:hover{
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
-
 #final_image{
     width: 150px;
     height: 150px;
