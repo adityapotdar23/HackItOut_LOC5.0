@@ -3,7 +3,7 @@ import pytesseract
 pytesseract.pytesseract.tesseract_cmd = r'C:/Users/ADITYA/AppData/Local/Programs/Tesseract-OCR/tesseract.exe'
 import cv2
 from pyaadhaar.utils import Qr_img_to_text, isSecureQr
-import cv2
+from cv2 import *
 from PIL import Image
 from pyaadhaar.utils import Qr_img_to_text, isSecureQr
 from pyaadhaar.decode import AadhaarSecureQr
@@ -25,6 +25,10 @@ def allowed_file(filename):
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/sign')
+def sign():
+    return render_template('sign.html')
 
 
 @app.route("/aadhar", methods=['GET', 'POST'])
@@ -125,6 +129,10 @@ def pan():
 
 
         return render_template('pan.html', context=context)
+
+@app.route('/capture_image', methods=['GET', 'POST'])
+def capture_img():
+        return render_template('capture_image.html')
 
 
 if __name__ == '__main__':

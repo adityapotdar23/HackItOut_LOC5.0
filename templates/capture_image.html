@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Auto Image Capture</title>
+</head>
+<body>
+	<div>
+		<video id="video" width="640" height="480" autoplay></video>
+	</div>
+	<div>
+		<button id="capture-button">Capture</button>
+	</div>
+	<script>
+		var video = document.querySelector("#video");
+		var captureButton = document.querySelector("#capture-button");
+
+		// get access to user's camera
+		navigator.mediaDevices.getUserMedia({ video: true })
+			.then(function(stream) {
+				video.srcObject = stream;
+			})
+			.catch(function(err) {
+				console.log("Error: " + err);
+			});
+
+		// capture image when capture button is clicked
+		captureButton.addEventListener("click", function() {
+			var canvas = document.createElement("canvas");
+			canvas.width = video.videoWidth;
+			canvas.height = video.videoHeight;
+			var ctx = canvas.getContext("2d");
+			ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+			var dataURL = canvas.toDataURL();
+			sendImageToServer(dataURL);
+		});
+
+		function sendImageToServer(dataURL) {
+			// send the dataURL to server using an HTTP request
+			// You can use XMLHttpRequest or fetch API to send the data
+			// to the server.
+			// For example:
+			// fetch('/upload-image', {
+			//     method: 'POST',
+			//     body: dataURL
+			// })
+			// .then(response => console.log(response))
+			// .catch(error => console.error(error));
+			console.log(dataURL);
+		}
+	</script>
+</body>
+</html>
