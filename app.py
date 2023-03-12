@@ -12,6 +12,17 @@ from pyaadhaar.decode import AadhaarOldQr
 import xml.etree.ElementTree as ET
 import numpy as np
 import os
+import pandas as pd
+from PIL import Image, ImageDraw, ImageFont
+from cryptography.fernet import Fernet
+import xml.etree.ElementTree as ET
+import qrcode
+import cv2
+from pyzbar.pyzbar import decode
+import numpy as np  
+import uuid
+
+
 
 app = Flask(__name__)
 
@@ -19,6 +30,7 @@ ALLOWED_EXT = set(['jpg', 'jpeg', 'png', 'jfif'])
 
 name = None
 yob = None
+pan_number = None
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -88,12 +100,12 @@ def aadhar():
 def pan():
     global name
     global yob
+    global pan_number
     if request.method == 'POST':
         # Get the uploaded file from the HTML form
         file = request.files['pan_img']
         # Read the image file using OpenCV
-        img = cv2.imdecode(np.fromstring(
-            file.read(), np.uint8), cv2.IMREAD_UNCHANGED)
+        img = cv2.imdecode(np.fromstring(file.read(), np.uint8), cv2.IMREAD_UNCHANGED)
         
         cv2.imwrite('static/images/pan_img.png', img)
 
@@ -136,6 +148,14 @@ def pan():
                 data = data.lower()  
                 mylst_1.append(data)
             mylst_1[ : ] = [' '.join(mylst_1[ : ])]
+            pattern = r"[A-Z]{5}[0-9]{4}[A-Z]{1}"
+
+            # Search for pattern in string
+            pan_number = re.search(pattern, mylst_1[0])
+
+            if pan_number:
+                print("PAN card number:", pan_number.group())
+
             status = 'Reupload your correct PAN image' 
             if 'income' in mylst_1[0]:
                 status = "Pan image uploaded successully" 
@@ -150,6 +170,83 @@ def pan():
         pan_img = None
 
     return render_template('pan.html', context=context, pan_img=pan_img)
+
+@app.route('/digitalid', methods=['GET', 'POST'])
+def digitalid():
+    global name
+    global yob
+    if request.method == 'POST':
+        def uuid_maker(data1):
+            file = request.files['image']
+            # generate a UUID and truncate it to the first 8 characters
+            img = cv2.imdecode(np.fromstring(file.read(), np.uint8), cv2.IMREAD_UNCHANGED)
+            cv2.imwrite('static/images/digitalpic.jpg', img)
+            '''
+            data1: list of data
+            '''
+            users_list = data1
+            usrconfig = ET.Element("usrconfig")
+            # create sub element
+            usrconfig = ET.SubElement(usrconfig, "usrconfig")
+            # insert list element into sub elements
+            for user in range(len(users_list)):
+                usr = ET.SubElement(usrconfig, "usr")
+                usr.text = str(users_list[user])
+            tree = ET.ElementTree(usrconfig)
+            # write the tree into an XML file
+            tree.write("static/xml/Output.xml", encoding ='utf-8', xml_declaration = True)
+            with open('static/xml/Output.xml', 'r') as f:
+                message = f.read()
+            font1 = ImageFont.truetype("static/OpenSans-Semibold.ttf", size=45)
+            font2 = ImageFont.truetype("static/OpenSans-Semibold.ttf", size=55)
+                        
+            # made the QRcode for encoded data
+            # define the string to encode as a QR code
+        #     string = r'''<?xml version='1.0' encoding='utf-8'?><usrconfig><usr>Sarvagya Singh</usr><usr>18/12/2002</usr><usr>Mumbai Maharashtra</usr><usr>photo1.jpg</usr></usrconfig>'''
+
+            # create a QR code instance
+            qr = qrcode.QRCode(version=None, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10, border=4)
+            # add the data to the QR code instance
+            qr.add_data(message)
+            # make the QR code
+            qr.make(fit=True)
+            # create an image from the QR code instance
+            img = qr.make_image(fill_color="black", back_color="white")
+            # display the image
+            img.save("static/img/EncodedQR.png")
+            
+            
+            # added data on template     
+            template = Image.open("static/img/uuid_template.png")
+            pic = Image.open(r"static/images/digitalpic.jpg").resize((265, 360), Image.ANTIALIAS)
+            template.paste(pic, (35, 90, 300, 450))
+            draw = ImageDraw.Draw(template)
+            # yob
+            draw.text((540, 310), str(data1[3]), font=font1, fill='black')
+            draw.text((480, 200), data1[0], font=font2, fill='black')
+            pic = Image.open(f"static/img/EncodedQR.png").resize((200, 200), Image.ANTIALIAS)
+
+            template.paste(pic, (550, 390,750,590))
+            draw = ImageDraw.Draw(template)
+            
+            #     Saving the file
+            templated = cv2.cvtColor(np.array(template), cv2.COLOR_BGR2RGB)
+            # decoded = decode(template)
+            # print(decoded[0].data.decode())
+            return template
+        
+        my_uuid = str(uuid.uuid4().hex)[:10]
+        my_uuid = my_uuid.upper()
+        data = [name[:14].upper(),yob,"static/img/photo1.jpg",my_uuid]
+        digitalid_img = uuid_maker(data)
+        # np_img = 
+        templated = cv2.cvtColor(np.array(digitalid_img), cv2.COLOR_BGR2RGB)
+        cv2.imwrite('static/images/digitalid.png',templated)
+        digitalid_img = 'digitalid.png'
+        # cv2.imwrite('static/images/digitalid.png',digitalid_img)
+    else:
+        digitalid_img = None
+    return render_template('digitalid.html', digitalid_img=digitalid_img)
 
 
 if __name__ == '__main__':
