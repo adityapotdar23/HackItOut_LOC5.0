@@ -89,8 +89,9 @@ a:hover{
     width:150px;
     height:100px;
     background-color: blue;
-    margin-top: 170px;
+    margin-top: 80px;
     margin-left: 200px;
+    box-shadow: 2px 2px 2px 2px rgb(147, 144, 144);
 
 }
 .lightblue{
@@ -98,4 +99,29 @@ a:hover{
     height:100px;
     background-color: rgb(64, 179, 213);
     margin-left: 300px;
+    box-shadow: 2px 2px 2px 2px rgb(147, 144, 144);
+}
+
+#upload{
+    background-color: rgb(35, 87, 199);
+    width: 180px;
+    padding: 10px;
+    margin-top:20px;
+    margin-left: 230px;
+    border-radius: 20px;
+    color: #fff;
+    border: white solid 1px;
+    box-shadow: 2px 2px 2px 2px rgb(170, 168, 168);
+}
+
+#download{
+    background-color: rgb(35, 87, 199);
+    width: 180px;
+    padding: 10px;
+    margin-top:20px;
+    margin-left: 230px;
+    border-radius: 20px;
+    color: #fff;
+    border: white solid 1px;
+    box-shadow: 2px 2px 2px 2px rgb(170, 168, 168);
 }

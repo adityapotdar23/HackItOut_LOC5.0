@@ -20,7 +20,7 @@
                         <img src="{{ url_for('static', filename='img/logo.png') }}">
                         <span class="nav-item">DashBoard</span>
                     </a></li>
-                <li><a href="#">
+                <li><a href="{{ url_for('index') }}">
                         <i class="fa-solid fa-house"></i>
                         <span class="nav-item">Home</span>
                     </a>
@@ -58,15 +58,12 @@
                     <form id="upload-file" method="post" action="/pan" enctype="multipart/form-data">
                         <label id="upload" for="imageUpload" class="upload-label"><b>Upload PAN Image:</b></label>
                         <br/>
-                        <input style="margin-top: 10px;margin-left:10px" type="file" name="pan_img" id="imageUpload" accept="image/png, image/jpg, image/jpeg">
-                        <input type="submit" value="Upload"></input>
+                        <input style="margin-top: 10px;margin-left:10px" type="file" name="aadhar_img" id="imageUpload" accept="image/png, image/jpg, image/jpeg">
+                        <input id="asian" type="submit" value="Upload"></input>
                     </form>
                 </div>
                 
                 <div id="display_image">
-                    {% if pan_img %}
-                    <img id="final_image" class="img-fluid border rounded imgheightWidth" src={{url_for('static', filename='images/' + pan_img)}} alt="Image">
-                    {% endif %}
                 </div>
                 
                 
@@ -76,17 +73,17 @@
             <form id="mainbase">
                 <h3 style="margin-bottom: 15px;">Verify Details</h3>
                 <div class="form-group">
-                    <label style="margin-top: 7px" style="margin-right: 10px;" for="Name">Status: </label>
-                    <div style="background: #e0dfdf;margin-left: 20px;" class="tp">{{ context.pan_card_status }}</div>
+                    <label style="margin-top: 7px" style="margin-right: 10px;" for="Name">Name: </label>
+                    <div style="background: #e0dfdf;margin-left: 20px;" class="tp">{{ context.PNR }}</div>
                 </div>
                 <div class="form-group">
-                    <label style="margin-top: 7px" for="UID">Verified Status: </label>
-                    <div style="background: #e0dfdf;margin-left: 40px;" class="tp">{{ context.verified_status }}</div>
+                    <label style="margin-top: 7px" for="UID">PNR: </label>
+                    <div style="background: #e0dfdf;margin-left: 40px;" class="tp">{{ context.name }}</div>
                 </div>
-                <!-- <div class="form-group">
+                <div class="form-group">
                     <label style="margin-top: 7px" for="message">Birth Year: </label>
-                    <div style="background: #e0dfdf;margin-left: 18px;" class="tp">{{ context.YOB }}</div>
-                </div> -->
+                    <div style="background: #e0dfdf;" class="tp">{{ context.YOB }}</div>
+                </div>
             </form>
             {% endif %}
         </div>

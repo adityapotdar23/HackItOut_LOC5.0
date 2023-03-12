@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" type="text/css" href="{{url_for('static' , filename='css/style.css' )}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static' , filename='css/sign.css' )}}">
     <link rel="icon" href="{{ url_for('static', filename='img/logo.png') }}">
     <script src="https://kit.fontawesome.com/43ac320d0f.js" crossorigin="anonymous"></script>
 </head>
@@ -32,16 +32,22 @@
                         <i class="fa-solid fa-credit-card"></i>
                         <span class="nav-item">Pan Card</span>
                     </a></li>
-                    <li><a href="{{ url_for('voter') }}">
+                <li><a href="">
                         <i class="fa-solid fa-car"></i>
+                        <span class="nav-item">Driving License</span>
+                    </a></li>
+                <li><a href="">
+                    <i class="fa-solid fa-check-to-slot"></i>
                         <span class="nav-item">Voter ID</span>
                     </a></li>
-
-                <li><a href="">
+                <li><a href="{{ url_for('sign') }}">
                         <i class="fa-solid fa-file-signature"></i>
                         <span class="nav-item">Digital Signature</span>
                     </a></li>
-
+                <li><a href="" class="logout">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        <span class="nav-item">Log Out</span>
+                    </a></li>
             </ul>
         </nav>
 
@@ -53,8 +59,14 @@
             <div class="lightblue">
     
             </div>
-            <h1
-                style="color: blue;margin-top: 50px;margin-left:90px;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"><i>Welcome To Digital Identity</i></h1>
+            <h3
+                style="color: blue;margin-top: 50px;margin-left:200px;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"><i>Upload your photo here</i></h3>
+        
+        <input style="margin-top: 10px;margin-left:225px" type="file" name="aadhar_img" id="imageUpload"
+                            accept="image/png, image/jpg, image/jpeg">
+        </br>
+                            <button id="upload"><h2>Upload</h2></button>
+                            <button id="download"><h2>Download</h2></button>
             
         </div>
 
