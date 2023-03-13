@@ -1,4 +1,8 @@
 from flask import Flask, render_template, request
+import pytesseract
+pytesseract.pytesseract.tesseract_cmd = r'C:/Users/ADITYA/AppData/Local/Programs/Tesseract-OCR/tesseract.exe'
+import cv2
+from pyaadhaar.utils import Qr_img_to_text, isSecureQr
 from cv2 import *
 from PIL import Image
 from pyaadhaar.utils import Qr_img_to_text, isSecureQr
@@ -12,10 +16,15 @@ from PIL import Image, ImageDraw, ImageFont
 from cryptography.fernet import Fernet
 import qrcode
 import cv2
+import easyocr
 from pyzbar.pyzbar import decode
 import uuid
+from flask import Flask, send_file
+from io import BytesIO
+from PIL import Image
 
-name = None 
+
+yob = None 
 global = None
 
 app = Flask(__name__)
@@ -37,7 +46,8 @@ def index():
 def sign():
     return render_template('sign.html')
 
-
+name = None 
+yob = None 
 @app.route("/aadhar", methods=['GET', 'POST'])
 def aadhar():
     global name 
@@ -82,7 +92,7 @@ def aadhar():
             for i in qrData:
                 root = ET.fromstring(i)
                 uid = root.attrib['uid']
-                name = root.attrib['name']
+                name = root.attrib['name'].lower()
                 gender = root.attrib['gender']
                 yob = root.attrib['yob'] 
                 context = {"UID": uid, "Name": name,
@@ -98,28 +108,43 @@ def aadhar():
 def pan():
     global name
     global yob
-    global pan_number
     if request.method == 'POST':
-
-        file = request.files['aadhar_img'] 
-
-        img = cv2.imdecode(np.fromstring(file.read(), np.uint8), cv2.IMREAD_UNCHANGED)
+        # Get the uploaded file from the HTML form
+        file = request.files['pan_img']
+        # Read the image file using OpenCV
+        img = cv2.imdecode(np.fromstring(
+            file.read(), np.uint8), cv2.IMREAD_UNCHANGED)
         
+        cv2.imwrite('static/images/pan_img.png', img)
+
+        pan_img = 'pan_img.png'
+        # # Save the uploaded image temporarily for debugging purposes
+        dpi = 80
+        fig_width, fig_height = int(img.shape[0]/dpi), int(img.shape[1]/dpi)
+        mylst = []
+
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
         th, threshed = cv2.threshold(gray, 127, 255, cv2.THRESH_TRUNC)
+        reader = easyocr.Reader(['en']) 
+        result = reader.readtext(img) 
 
-        text1 = pytesseract.image_to_data(threshed,output_type='data.frame')
+        for (bbox, text, prob) in result:
+            if prob >= 0.5:
+                # display 
+                mylst.append(text)
+                print(f'Detected text: {text} (Probability: {prob:.2f})')
 
-        text2 = pytesseract.image_to_string(threshed, lang="ind")
+                # get top-left and bottom-right bbox vertices
+                (top_left, top_right, bottom_right, bottom_left) = bbox
+                top_left = (int(top_left[0]), int(top_left[1]))
+                bottom_right = (int(bottom_right[0]), int(bottom_right[1]))
 
-        text = text1[text1.conf != -1]
+                # create a rectangle for bbox display
+                cv2.rectangle(img=img, pt1=top_left, pt2=bottom_right, color=(255, 0, 0), thickness=10)
 
-        lines = text.groupby('block_num')['text'].apply(list)
-
-        mylst = [] 
-        for i in lines:
-            mylst.extend(i)
+                # put recognized text
+                cv2.putText(img=img, text=text, org=(top_left[0], top_left[1] - 10), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.5, color=(255, 0, 0), thickness=1)
 
         if len(mylst) == 0:
             context = None
@@ -131,21 +156,15 @@ def pan():
                 data = data.lower()  
                 mylst_1.append(data)
             mylst_1[ : ] = [' '.join(mylst_1[ : ])]
-            pattern = r"[A-Z]{5}[0-9]{4}[A-Z]{1}"
-
-            # Search for pattern in string
-            pan_number = re.search(pattern, mylst_1[0])
-
-            if pan_number:
-                print("PAN card number:", pan_number.group())
-
-            status = 'Reupload your correct PAN image' 
+            print(mylst_1)
+            print(name,yob)
+            status = 'Reupload your correct PAN CARD image' 
             if 'income' in mylst_1[0]:
-                status = "Pan image uploaded successully" 
+                status = " PAN CARD image uploaded successully" 
             if name in mylst_1[0] and yob in mylst_1[0]:
-                verified = 'Pan card and Aaadhar card verified'
+                verified = 'PAN CARD verified'
             else:
-                verified = 'Re-upload Pan Card. Not Verified' 
+                verified = 'Re-upload PAN CARD. Not Verified' 
             context = {'pan_card_status': status, 'verified_status':verified}
 
     else:
@@ -223,7 +242,7 @@ def digitalid():
         data = [name[:14].upper(),yob,"static/img/photo1.jpg",my_uuid]
         digitalid_img = uuid_maker(data)
         # np_img = 
-        templated = cv2.cvtColor(np.array(digitalid_img), cv2.COLOR_BGR2RGB)
+        templated = cv2.cvtColor(np.array(digitalid_img),  cv2.COLOR_BGR2RGB)
         cv2.imwrite('static/images/digitalid.png',templated)
         digitalid_img = 'digitalid.png'
         # cv2.imwrite('static/images/digitalid.png',digitalid_img)
@@ -300,6 +319,20 @@ def voter():
 
     return render_template('voter.html', context=context, voter_img=voter_img)
 
+@app.route('/convert-image-to-pdf')
+def convert_image_to_pdf():
+    # Open the image file
+    img = Image.open('static/images/digitalid.png')
+    print(img)
+    # Convert the image to PDF format
+    buffer = BytesIO()
+    img.save(buffer, 'PDF')
+    
+    # Set the buffer's cursor to the beginning
+    buffer.seek(0)
+    
+    # Return the PDF file as a downloadable attachment
+    return send_file(buffer, download_name='didital_identity.pdf', as_attachment=True)
 
 if __name__ == '__main__':
     app.run(debug=True)

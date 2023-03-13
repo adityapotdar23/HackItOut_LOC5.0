@@ -2,63 +2,71 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
-  <link rel="stylesheet" type="text/css" href="{{url_for('static' , filename='css/style.css' )}}">
-  <script src="https://kit.fontawesome.com/43ac320d0f.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static' , filename='css/sign.css' )}}">
+    <link rel="icon" href="{{ url_for('static', filename='img/logo.png') }}">
+    <script src="https://kit.fontawesome.com/43ac320d0f.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-  <div class="container">
-    <nav>
-      <ul>
-        <li><a href="#" class="logo">
-            <img src="{{ url_for('static', filename='img/logo.png') }}">
-            <span class="nav-item">DashBoard</span>
-          </a></li>
-        <li><a href="#">
-            <i class="fa-solid fa-house"></i>
-            <span class="nav-item">Home</span>
-          </a></li>
-        <li><a href="{{ url_for('aadhar') }}">
-            <i class="fa-solid fa-user"></i>
-            <span class="nav-item">Aadhar Card</span>
-          </a></li>
-        <li><a href="{{ url_for('pan') }}">
-            <i class="fa-solid fa-credit-card"></i>
-            <span class="nav-item">Pan Card</span>
-          </a></li>
-        <li><a href="">
-            <i class="fa-solid fa-car"></i>
-            <span class="nav-item">Driving License</span>
-          </a></li>
-        <li><a href="">
-            <i class="fa-solid fa-passport"></i>
-            <span class="nav-item">Passport</span>
-          </a></li>
-        <li><a href="{{ url_for('digitalid') }}">
-            <i class="fa-solid fa-file-signature"></i>
-            <span class="nav-item">Digital Signature</span>
-          </a></li>
-        <li><a href="" class="logout">
-            <i class="fa-solid fa-right-to-bracket"></i>
-            <span class="nav-item">Log Out</span>
-          </a></li>
-      </ul>
-    </nav>
-<form action="/digitalid" method="post" enctype="multipart/form-data">
-  <input type="file" accept="image/*" name="image">
-  <button type="submit">Upload Image</button>
-</form>
+    <div class="container">
+        <nav>
+            <ul>
+                <li><a href="#" class="logo">
+                        <img src="{{ url_for('static', filename='img/logo.png') }}">
+                        <span class="nav-item">DashBoard</span>
+                    </a></li>
+                    <li><a href="{{ url_for('index') }}">
+                        <i class="fa-solid fa-house"></i>
+                        <span class="nav-item">Home</span>
+                    </a>
+                </li>
+                <li><a href="{{ url_for('aadhar') }}">
+                        <i class="fa-solid fa-user"></i>
+                        <span class="nav-item">Aadhar Card</span>
+                    </a></li>
+                <li><a href="{{ url_for('pan') }}">
+                        <i class="fa-solid fa-credit-card"></i>
+                        <span class="nav-item">Pan Card</span>
+                    </a></li>
+                <li><a href="{{ url_for('voter') }}">
+                    <i class="fa-solid fa-check-to-slot"></i>
+                        <span class="nav-item">Voter ID</span>
+                    </a></li>
+                <li><a href="{{ url_for('digitalid') }}">
+                        <i class="fa-solid fa-file-signature"></i>
+                        <span class="nav-item">Digital Signature</span>
+                    </a></li>
+            </ul>
+        </nav>
+        
+        <div class="wel">
+            <div class="blue">
+                
+            </div>
+            
+            <div class="lightblue">
+                
+            </div>
+            <h3
+            style="color: blue;margin-top: 50px;margin-left:200px;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"><i>Upload your photo here</i></h3>
+            
+            
+        </br>
+        <form action="/digitalid" method="post" enctype="multipart/form-data">
+            <input style="margin-top: 10px;margin-left:225px" type="file" name="image" id="imageUpload" accept="image/png, image/jpg, image/jpeg">
+            <button id="upload" type="submit">Upload Image</button>
+        </form>
+        <a style="margin-left: 260px;margin-top:20px" href="{{ url_for('convert_image_to_pdf') }}" download>Download PDF</a>   
+        </div>
 
-    {% if digitalid_img %}
-      <img id="final_image" class="img-fluid border rounded imgheightWidth" src={{url_for('static', filename='images/' + digitalid_img)}} alt="Image" >
-    {% endif %}
 
-    </section>
-  </div>
+
+    
+    </div>
 
 </body>
 
