@@ -15,7 +15,8 @@ import cv2
 from pyzbar.pyzbar import decode
 import uuid
 
-
+name = None 
+global = None
 
 app = Flask(__name__)
 
@@ -39,6 +40,8 @@ def sign():
 
 @app.route("/aadhar", methods=['GET', 'POST'])
 def aadhar():
+    global name 
+    global yob 
     if request.method == 'POST':
         # Get the uploaded file from the HTML form
         file = request.files['aadhar_img']
