@@ -2,7 +2,6 @@ from flask import Flask, render_template, request
 import cv2
 from pyaadhaar.utils import Qr_img_to_text, isSecureQr
 from cv2 import *
-from PIL import Image
 from pyaadhaar.decode import AadhaarSecureQr
 from pyaadhaar.decode import AadhaarOldQr
 import xml.etree.ElementTree as ET
@@ -18,7 +17,6 @@ from pyzbar.pyzbar import decode
 import uuid
 from flask import Flask, send_file
 from io import BytesIO
-from PIL import Image
 
 
 yob = None 
@@ -332,4 +330,4 @@ def convert_image_to_pdf():
     return send_file(buffer, download_name='didital_identity.pdf', as_attachment=True)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
