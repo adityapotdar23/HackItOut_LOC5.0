@@ -330,4 +330,4 @@ def convert_image_to_pdf():
     return send_file(buffer, download_name='didital_identity.pdf', as_attachment=True)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(debug=True)
