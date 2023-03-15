@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request
-import cv2
 from pyaadhaar.utils import Qr_img_to_text, isSecureQr
 from cv2 import *
 from pyaadhaar.decode import AadhaarSecureQr
@@ -17,7 +16,6 @@ from pyzbar.pyzbar import decode
 import uuid
 from flask import Flask, send_file
 from io import BytesIO
-
 
 yob = None 
 name = None
