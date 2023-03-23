@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
+import cv2
 from pyaadhaar.utils import Qr_img_to_text, isSecureQr
-from cv2 import *
 from pyaadhaar.decode import AadhaarSecureQr
 from pyaadhaar.decode import AadhaarOldQr
 import xml.etree.ElementTree as ET
