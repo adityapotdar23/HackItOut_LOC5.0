@@ -1,5 +1,14 @@
-<img align="center" src="https://ifflab.org/wp-content/uploads/2018/01/cyber-secured-india.jpg" alt="digital_india" height="400" width="800" /></a>
+Thia project was made at "LOC 5.0" organized by DJACM. 
+<br>
+<b>Team Name:</b> Hack It Out 
+<br>
+Team Members: 
+<a href="https://github.com/adityapotdar23">Aditya Potdar</a>, 
+<a href="https://github.com/Vallabhh">Vallabh Shelar</a>, 
+<a href="https://github.com/samir14z">Mohd Samir Ansari</a>, 
+<a href="https://github.com/Sarvyi">Sarvagya Singh</a>
 
+<img align="center" src="https://ifflab.org/wp-content/uploads/2018/01/cyber-secured-india.jpg" alt="digital_india" height="400" width="800" /></a>
 
 In India, the offline verification and document submission processes for any official document can be lengthy, difficult, and paper-intensive. It is a rollercoaster of emotions, ranging from frustration to anxiety to relief, and it can feel like you're jumping through hoops just to be recognized as a valid citizen, as individuals must typically visit government offices in person to submit their documents and then wait a long time for verification and approval. For instance, a passport renewal typically requires the submission of hard copies of various documents, including identification cards, proofs of address, and certificates, which must be verified by government officials and can take several weeks or even months, depending on the volume of applications and the efficiency of the government office. 
 
